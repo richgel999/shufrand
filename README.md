@@ -40,7 +40,21 @@ In C++, `#include shufrand.h`. All the functionality is inlined. You'll need to 
 
 This PRNG passes dieharder, TestU01 SmallCrush and Crush. (At least, it passes dieharder when tested as a single 128-bit generator.) With dieharder, I get 0-3 "weak" results, but usually no failures, depending on the initial seeds. It seems to be weakest with the "dab_bytedistrib" test. The testing logs are in the repo. 
 
-BigCrush is still testing; let's see what happens. I'm quite doubtful it'll pass BigCrush because at its heart this is still just 4 32-bit generators ganged together with a fancy bitmix across lanes. 
+Unfortunately it doesn't fully pass BigCrush:
+
+```
+ The following tests gave p-values outside [0.001, 0.9990]:
+ (eps  means a value < 1.0e-300):
+ (eps1 means a value < 1.0e-15):
+
+       Test                          p-value
+ ----------------------------------------------
+ 60  WeightDistrib, r = 20           9.6e-4
+ 79  RandomWalk1 M (L=10000, r=15)   5.0e-4
+ 89  PeriodsInStrings, r = 20       9.1e-12
+ ----------------------------------------------
+ All other tests were passed
+ ```
 
 The SmallCrush/Crush tests pass each lane to the TestU01 test framework one uint32_t at a time, i.e. as if the generator was returning 128-bits (which it is). In other words, on each callback from the test framework, the next available uint32_t is passed to the test. This may or may not be ideal, but it was the first thing that came to mind. I tried this using both forward and reversed bits in each lane. I'll be re-running the test using individual lanes next.
 
