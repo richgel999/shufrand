@@ -24,6 +24,9 @@ The trickiest part to getting this working (i.e. reliably passing various tests)
 
 Many other variations on this approach are possible. I'm sure the included 256 entry table can be improved. I experimented with 16 entry tables, but had little success with them.
 
+## Using the generator
+In C++, `#include shufrand.h`. All the functionality is inlined. You'll need to link against `shufrand.cpp`, which includes the table in `shufrand.inl`. All the other files are for testing purposes only.
+
 ## Current Test Results
 
 This PRNG passes dieharder, TestU01 SmallCrush and Crush. With dieharder, I get 0-3 "weak" results, but no failures, depending on the initial seeds. The testing logs are in the repo. BigCrush is still testing; let's see what happens. I'm quite doubtful it'll pass BigCrush because at its heart this is still just 4 32-bit generators ganged together with a fancy bitmix across lanes. 
