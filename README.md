@@ -22,7 +22,7 @@ The trickiest part to getting this working (i.e. reliably passing various tests)
 - "Low bytes" (the ones at offset 0 in each of the 4 lanes, i.e. the LSB) cannot be XOR'd into the low bytes of any other lane. The lowest byte of LCG's have the least amount of entropy (they cycle relatively quickly), so we want to XOR higher entropy bytes into these low bytes. This better diffuses the entropy we do have across all the lanes.
 - For each of the 4 lanes, only 1 low byte from another lane is allowed to be XOR'd into that lane. This is to prevent XOR'ing in too many weak bytes into a lane.
 
-Many other variations on this approach are possible. I'm sure the included 256 entry table can be improved. I experimented with 16 entry tables, but had little success with them.
+Many other variations on this approach are possible. I'm sure the included 256 entry table can be improved. I experimented with 16 entry tables, but had little success with them. The permutation table seems to be this approach's weakest link, and if this generator has a key flaw I would bet it's in the current table.
 
 ## Using the generator
 In C++, `#include shufrand.h`. All the functionality is inlined. You'll need to link against `shufrand.cpp`, which includes the table in `shufrand.inl`. All the other files are for testing purposes only. **Importantly**, after picking the 4 lane seeds, always immediately call the generator once (`shufrand_next()`) to prime it. **Also make sure each lane's seed is different, or you'll effectively only have one to three 32-bit generators instead of four parallel 32-bit generators.**
