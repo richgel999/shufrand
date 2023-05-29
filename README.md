@@ -73,3 +73,4 @@ Historically, even the supposedly best or most respected PRNG's turn out to even
 - https://linux.die.net/man/1/dieharder
 - https://github.com/imneme/pcg-c/blob/83252d9c23df9c82ecb42210afed61a7b42402d7/include/pcg_variants.h#L504
 - https://en.wikipedia.org/wiki/Permutation_box
+- https://github.com/lemire/testingRNG
