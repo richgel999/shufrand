@@ -7,7 +7,7 @@ This is a SSE 4.1 modified variant of O’Neill's 32-bit “RXS-M-XS” PCG (Per
 
 I'm mostly releasing this as a demonstration. Most vectorized PRNG's I've seen are vanilla ports of scalar functions which don't exploit x86 vector shuffle ops. These instructions are very powerful and popular, and they have much lower latency than 32-bit muls. New PRNG's should consider exploiting these operations as first-class citizens.
 
-## The SSE 4.1 Function
+## The SSE 4.1 function
 
 The core [random function](https://github.com/richgel999/shufrand/blob/main/shufrand.h#L65) returns 4 floats in a `__m128i` register. Apart from replacing the variable shift right with a cross-lane vector shuffle, the LCG and the final stage's mul+xor shift are unmodified:
 
@@ -15,7 +15,7 @@ The core [random function](https://github.com/richgel999/shufrand/blob/main/shuf
 
 This implementation uses 4 different 32-bit LCG's running in parallel, each with different states, so its period is still 2^32. However, the entropy of each independent 32-bit generator is spread between all the lanes in a 128-bit register, because doing so is cheap to do with a single shuffle. So it's a strange low period hybrid between a 32-bit generator, and something larger. You can treat the results as 4 32-bit outputs up to a single 128-bit output.
 
-## The Permutation Table
+## The permutation table
 
 The trickiest part to getting this working (i.e. reliably passing various tests) was computing a suitable permutation table. The table precomputation approach I used has the following constraints (which are probably not optimal, but this seems to work):
 - A byte in a lane cannot be permuted against itself (obviously, or it would always result in 0 once XOR'd against the input vector, losing information)
@@ -27,7 +27,7 @@ Many other variations on this approach are possible. I'm sure the included 256 e
 ## Using the generator
 In C++, `#include shufrand.h`. All the functionality is inlined. You'll need to link against `shufrand.cpp`, which includes the table in `shufrand.inl`. All the other files are for testing purposes only. **Importantly**, after picking the 4 lane seeds, always immediately call the generator once (`shufrand_next`) to prime it.
 
-## Current Test Results
+## Current test results
 
 This PRNG passes dieharder, TestU01 SmallCrush and Crush. With dieharder, I get 0-3 "weak" results, but no failures, depending on the initial seeds. The testing logs are in the repo. BigCrush is still testing; let's see what happens. I'm quite doubtful it'll pass BigCrush because at its heart this is still just 4 32-bit generators ganged together with a fancy bitmix across lanes. 
 
