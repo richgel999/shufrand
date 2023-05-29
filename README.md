@@ -25,7 +25,7 @@ The trickiest part to getting this working (i.e. reliably passing various tests)
 Many other variations on this approach are possible. I'm sure the included 256 entry table can be improved. I experimented with 16 entry tables, but had little success with them.
 
 ## Using the generator
-In C++, `#include shufrand.h`. All the functionality is inlined. You'll need to link against `shufrand.cpp`, which includes the table in `shufrand.inl`. All the other files are for testing purposes only. **Importantly**, after picking the 4 lane seeds, always immediately call the generator once (`shufrand_next`) to prime it. **Also make sure each lane's seed is different, or you'll effectively only have a single 32-bit generator instead of 4 parallel 32-bit generators.**
+In C++, `#include shufrand.h`. All the functionality is inlined. You'll need to link against `shufrand.cpp`, which includes the table in `shufrand.inl`. All the other files are for testing purposes only. **Importantly**, after picking the 4 lane seeds, always immediately call the generator once (`shufrand_next()`) to prime it. **Also make sure each lane's seed is different, or you'll effectively only have a single 32-bit generator instead of 4 parallel 32-bit generators.**
 
 ## Current test results
 
