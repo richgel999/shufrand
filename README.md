@@ -1,5 +1,5 @@
 # shufrand
-Vectorized (SSE 4.1) non-cryptographic pseudorandom number generator ([PCG](https://en.wikipedia.org/wiki/Permuted_congruential_generator) variant). Public domain: [unlicense.org](unlicense.org).
+Vectorized (SSE 4.1) non-cryptographic pseudorandom number generator ([PCG](https://en.wikipedia.org/wiki/Permuted_congruential_generator) variant). Public domain: [unlicense.org](https://unlicense.org/).
 
 ## Intro
 
