@@ -5,7 +5,7 @@ Vectorized (SSE 4.1) non-cryptographic pseudorandom number generator ([PCG](http
 
 This is a SSE 4.1 modified variant of O’Neill's 32-bit “RXS-M-XS” PCG (Permuted Congruential Generator) PRNG. A plain C (non-vectorized) implementation is also included for validation/porting. Unfortunately, `_mm_srlv_epi32()` (variable lane shift right), which is used by the original scalar PCG implementation, requires AVX-2, not SSE 4.1, so I had to find a vectorized workaround compatible with SSE 4.1 that is still fast. One fast and simple alternative, which is a reversible integer function, is a table-driven byte permutation. This can be implemented using `_mm_movemask_epi8()`, some sort of table lookup based off a function of the returned 16 mask bits, followed by `_mm_shuffle_epi8()`.
 
-I'm mostly releasing this as a demonstration. Most vectorized PRNG's I've seen are vanilla ports of scalar functions which don't exploit x86 vector shuffle ops. These instructions are very powerful and popular, and they have much lower latency than 32-bit muls. New PRNG's should consider exploiting these operations as first-class citizens.
+I'm mostly releasing this as a demonstration. Most vectorized PRNG's I've seen are vanilla ports of scalar functions which don't exploit x86 vector shuffle ops. These instructions are very powerful and popular, and they have much lower latency than 32-bit muls. New PRNG's should consider exploiting these operations as first-class citizens. The original idea of using vector shuffles for fast PRNG's is due to Stephan Schaem (as far as I can tell), see [flipcode.com](https://www.flipcode.com/archives/07-15-2002.shtml).
 
 ## The SSE 4.1 function
 
