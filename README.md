@@ -9,7 +9,7 @@ I'm mostly releasing this as a demonstration. Most vectorized PRNG's I've seen a
 
 ## The SSE 4.1 Function
 
-The core [random function](https://github.com/richgel999/shufrand/blob/main/shufrand.h#L65) returns 4 floats in a `__m128i` register. Apart from the shuffle, the LCG and the final stage's mul+xor shift are unmodified:
+The core [random function](https://github.com/richgel999/shufrand/blob/main/shufrand.h#L65) returns 4 floats in a `__m128i` register. Apart from replacing the variable shift right with a cross-lane vector shuffle, the LCG and the final stage's mul+xor shift are unmodified:
 
 ![shufrange function](shufrand_func_png.png "shufrange SSE 4.1 implementation")
 
