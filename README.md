@@ -40,7 +40,7 @@ In C++, `#include shufrand.h`. All the functionality is inlined. You'll need to 
 
 This PRNG passes dieharder, TestU01 SmallCrush and Crush. (At least, it passes dieharder when tested as a single 128-bit generator.) With dieharder, I get 0-3 "weak" results, but usually no failures, depending on the initial seeds. It seems to be weakest with the "dab_bytedistrib" test. The testing logs are in the repo. 
 
-Unfortunately it doesn't fully pass BigCrush:
+It passes all tests in BigCrush but 3:
 
 ```
  The following tests gave p-values outside [0.001, 0.9990]:
