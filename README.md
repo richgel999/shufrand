@@ -5,7 +5,7 @@ This is a SSE 4.1 variant of O’Neill's 32-bit “RXS-M-XS” PCG (Permuted Con
 
 I'm mostly releasing this as a demonstration. Most vectorized PRNG's I've seen are vanilla ports of scalar functions which don't exploit x86 vector shuffle ops. These instructions are very powerful and popular, and they have much lower latency than 32-bit muls. New PRNG's should consider exploiting these operations as first-class citizens.
 
-The core [random function](https://github.com/richgel999/shufrand/blob/main/shufrand.h#L65) returns 4 floats in a `__m128` register:
+The core [random function](https://github.com/richgel999/shufrand/blob/main/shufrand.h#L65) returns 4 floats in a `__m128i` register:
 
 ![shufrange function](shufrand_func_png.png "shufrange SSE 4.1 implementation")
 
