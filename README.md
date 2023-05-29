@@ -1,9 +1,7 @@
 # shufrand
 SSE 4.1 vectorized pseudorandom number generator ([PCG](https://en.wikipedia.org/wiki/Permuted_congruential_generator) variant)
 
-This is a SSE 4.1 variant of the 32-bit “RXS-M-XS” PCG PRNG. Unfortunately,  _mm_srlv_epi32() (variable lane right shift) is AVX-2, not SSE 4.1, so I had to find a workaround compatible with SSE 4.1. One fast alternative is a table driven byte permutation, or _mm_shuffle_epi8(). This PRNG passes dieharder, TestU01 SmallCrush and Crush. (BigCrush is testing, let's see what happens.)
-
-
+This is a SSE 4.1 variant of the 32-bit “RXS-M-XS” PCG PRNG. Unfortunately,  `_mm_srlv_epi32()` (variable lane right shift) is AVX-2, not SSE 4.1, so I had to find a workaround compatible with SSE 4.1. One fast alternative is a table driven byte permutation, or _mm_shuffle_epi8(). This PRNG passes dieharder, TestU01 SmallCrush and Crush. (BigCrush is testing, let's see what happens.)
 
 ## Links:  
 - https://www.pcg-random.org/
