@@ -3,6 +3,10 @@ Vectorized (SSE 4.1) non-cryptographic pseudorandom number generator ([PCG](http
 
 This is a SSE 4.1 variant of O’Neill's 32-bit “RXS-M-XS” PCG (Permuted Congruential Generator) PRNG. A plain C (non-vectorized) implementation is also included for validation/porting. Unfortunately, `_mm_srlv_epi32()` (variable lane shift right), which is used by the stock scalar PCG implementation, requires AVX-2, not SSE 4.1, so I had to find a vectorized workaround compatible with SSE 4.1 that is still fast. One fast and simple alternative, which is a reversible integer function, is a table-driven byte permutation. This can be implemented using `_mm_movemask_epi8()`, some sort of table lookup based off a function of the returned 16 mask bits, followed by `_mm_shuffle_epi8()`.
 
+The core [random function](https://github.com/richgel999/shufrand/blob/main/shufrand.h#L65) returns 4 floats in a `__m128` register:
+
+![shufrange function](shufrand_func_png.png "shufrange SSE 4.1 implementation")
+
 This implementation uses 4 different 32-bit LCG's running in parallel, each with different states, so its period is still 2^32. However, the entropy of each independent 32-bit generator is spread between all the lanes in a 128-bit register, because doing so is cheap to do with a single shuffle. So it's a strange low period hybrid between a 32-bit generator, and something larger.
 
 The trickiest part to getting this working (i.e. reliably passing various tests) was computing a suitable permutation table. The table precomputation approach I used has the following constraints (which are probably not optimal, but this seems to work):
