@@ -29,6 +29,13 @@ Many other variations on this approach are possible. I'm sure the included 256 e
 ## Using the generator
 In C++, `#include shufrand.h`. All the functionality is inlined. You'll need to link against `shufrand.cpp`, which includes the table in `shufrand.inl`. All the other files are for testing purposes only. **Importantly**, after picking the 4 lane seeds, always immediately call the generator once (`shufrand_next()`) to prime it. **Also make sure each lane's seed is different, or you'll effectively only have one to three 32-bit generators instead of four parallel 32-bit generators.**
 
+## Drawbacks
+
+- Static 4KB shuffle table (256 entries * 16 bytes per entry)
+- Each lane only has 32-bits of state
+- Low period: 2^32
+- May have hidden undetected flaws
+
 ## Current test results
 
 This PRNG passes dieharder, TestU01 SmallCrush and Crush. (At least, it passes dieharder when tested as a single 128-bit generator.) With dieharder, I get 0-3 "weak" results, but usually no failures, depending on the initial seeds. It seems to be weakest with the "dab_bytedistrib" test. The testing logs are in the repo. 
