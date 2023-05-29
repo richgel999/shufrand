@@ -58,4 +58,4 @@ Historically, even the supposedly best or most respected PRNG's turn out to even
 - https://www.pcg-random.org/posts/how-to-test-with-testu01.html
 - https://linux.die.net/man/1/dieharder
 - https://github.com/imneme/pcg-c/blob/83252d9c23df9c82ecb42210afed61a7b42402d7/include/pcg_variants.h#L504
-- https://en.wikipedia.org/wiki/P-box
+- https://en.wikipedia.org/wiki/Permutation_box
