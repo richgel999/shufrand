@@ -13,7 +13,7 @@ The core [random function](https://github.com/richgel999/shufrand/blob/main/shuf
 
 ![shufrange function](shufrand_func_png.png "shufrange SSE 4.1 implementation")
 
-This implementation uses 4 different 32-bit LCG's running in parallel, each with different states, so its period is still 2^32. However, the entropy of each independent 32-bit generator is spread between all the lanes in a 128-bit register, because doing so is cheap to do with a single shuffle. So it's a strange low period hybrid between a 32-bit generator, and something larger.
+This implementation uses 4 different 32-bit LCG's running in parallel, each with different states, so its period is still 2^32. However, the entropy of each independent 32-bit generator is spread between all the lanes in a 128-bit register, because doing so is cheap to do with a single shuffle. So it's a strange low period hybrid between a 32-bit generator, and something larger. You can treat the results as 4 32-bit outputs up to a single 128-bit output.
 
 ## The Permutation Table
 
