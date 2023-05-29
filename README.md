@@ -22,7 +22,7 @@ The trickiest part to getting this working (i.e. reliably passing various tests)
 - "Low bytes" (the ones at offset 0 in each of the 4 lanes, i.e. the LSB) cannot be XOR'd into the low bytes of any other lane. The lowest byte of LCG's have the least amount of entropy (they cycle relatively quickly), so we want to XOR higher entropy bytes into these low bytes. This better diffuses the entropy we do have across all the lanes.
 - For each of the 4 lanes, only 1 low byte from another lane is allowed to be XOR'd into that lane. This is to prevent XOR'ing in too many weak bytes into a lane.
 
-Many other variations on this approach are possible.
+Many other variations on this approach are possible. I'm sure the included 256 entry table can be improved. I experimented with 16 entry tables, but had little success with them.
 
 ## Current Test Results
 
