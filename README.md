@@ -31,10 +31,10 @@ In C++, `#include shufrand.h`. All the functionality is inlined. You'll need to 
 
 ## Drawbacks
 
+- Passes dieharder, TestU01's SmallCrush and Crush, but not the BigCrush test
 - Static 4KB shuffle table (256 entries * 16 bytes per entry)
 - Each lane only has 32-bits of state
 - Low period: 2^32
-- May have hidden undetected flaws
 
 ## Current test results
 
