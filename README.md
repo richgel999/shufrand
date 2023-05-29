@@ -12,11 +12,11 @@ The trickiest part to getting this working (i.e. reliably passing various tests)
 
 Many other variations on this approach are possible.
 
-This PRNG passes dieharder, TestU01 SmallCrush and Crush. The testing logs are in the repo. BigCrush is still testing; let's see what happens. I'm quite doubtful it'll pass BigCrush because at its heart this is still just 4 32-bit generators ganged together with a fancy bitmix across lanes. 
+This PRNG passes dieharder, TestU01 SmallCrush and Crush. With dieharder, I get 0-3 "weak" results, but no failures, depending on the initial seeds. The testing logs are in the repo. BigCrush is still testing; let's see what happens. I'm quite doubtful it'll pass BigCrush because at its heart this is still just 4 32-bit generators ganged together with a fancy bitmix across lanes. 
 
 ## Mini-Rant
 
-Historically, even the supposedly best or most respected PRNG's turn out to eventually fail some tests, sometimes many years later. I remember 26 years ago, the [Mersenne Twister](https://en.wikipedia.org/wiki/Mersenne_Twister) was all the rage, and now it's questionable/deprecated. Just because a generator passes some tests doesn't mean it's actually any good. At this point in my career, I'm honestly skeptical and leary of ALL non-cryptographic PRNG's. Use them all (including this one!) at your own risk. At the minimum, for real simulation work I would combine together multiple generators that use completely different approaches, and test the results. This should help as a hedge in case one or more are actually flawed in some way that is currently undetected.
+Historically, even the supposedly best or most respected PRNG's turn out to eventually fail some tests, sometimes many years later. I remember 26 years ago, the [Mersenne Twister](https://en.wikipedia.org/wiki/Mersenne_Twister) was all the rage, and now it's questionable/deprecated. Just because a generator passes some tests doesn't mean it's actually any good. At this point in my career, I'm honestly skeptical and leary of ALL non-cryptographic PRNG's. Use them all (including this one!) at your own risk. For real simulation work I would consider combining together multiple generators (using XOR) that use completely different approaches, and test the results. This should help as a hedge in case one or more are actually flawed in some way that is currently undetected. Odds are, historically speaking, all current generators have undetected flaws.
 
 ## Key Links/References:  
 - https://www.pcg-random.org/
