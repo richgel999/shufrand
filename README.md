@@ -7,7 +7,7 @@ This implementation uses 4 different 32-bit LCG's running in parallel, each with
 
 The trickiest part to getting this working (i.e. reliably passing various tests) was computing a suitable permutation table. The table precomputation approach I used has the following constraints (which are probably not optimal, but this seems to work):
 - A byte in a lane cannot be permuted against itself (obviously, or it would always result in 0 once XOR'd against the input vector, losing information)
-- "Low bytes" (the ones at offset 0 in each of the 4 lanes, i.e. the LSB) cannot be XOR'd into the low bytes of any other another lane. The lowest byte of LCG's have the least amount of entropy (they cycle relatively quickly), so we want to XOR higher entropy bytes into these low bytes. This betters diffuses the entropy we do have across all the lanes.
+- "Low bytes" (the ones at offset 0 in each of the 4 lanes, i.e. the LSB) cannot be XOR'd into the low bytes of any other another lane. The lowest byte of LCG's have the least amount of entropy (they cycle relatively quickly), so we want to XOR higher entropy bytes into these low bytes. This better diffuses the entropy we do have across all the lanes.
 - For each of the 4 lanes, only 1 low byte from another lane is allowed to be XOR'd into that lane. This is to prevent XOR'ing in too many weak bytes into a lane.
 
 Many other variations on this approach are possible.
