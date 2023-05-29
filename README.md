@@ -1,5 +1,5 @@
 # shufrand
-Fast fectorized (SSE 4.1) non-cryptographic pseudorandom number generator ([PCG](https://en.wikipedia.org/wiki/Permuted_congruential_generator) variant). Public domain: [unlicense.org](https://unlicense.org/).
+Fast vectorized (SSE 4.1) non-cryptographic pseudorandom number generator ([PCG](https://en.wikipedia.org/wiki/Permuted_congruential_generator) variant). Public domain: [unlicense.org](https://unlicense.org/).
 
 ## Intro
 
